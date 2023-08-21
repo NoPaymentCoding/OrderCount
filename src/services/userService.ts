@@ -14,13 +14,34 @@ class userService {
         {
           headers: {
             "Content-Type": `application/json`,
-            origin: `http://localhost:3003`,
           },
         }
       );
       return response;
     } catch (e) {
-      console.log(e);
+      return e;
+    }
+  }
+
+  async signIn(email: string, password: string) {
+    let data = {
+      email: email,
+      password: password,
+    };
+    try {
+      const response = await axios.post(
+        `${SERVER_URL}/api/members/login`,
+        JSON.stringify(data),
+        {
+          headers: {
+            "Content-Type": `application/json`,
+          },
+        }
+      );
+      console.log(response);
+      return response;
+    } catch (e) {
+      return e;
     }
   }
 }
