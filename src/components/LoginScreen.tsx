@@ -1,5 +1,6 @@
-import React from "react";
 import { useState } from "react";
+import { userService } from "../services/userService";
+import * as React from "react";
 
 const LoginScreen = () => {
   const [userID, setUserID] = useState("");
@@ -8,6 +9,16 @@ const LoginScreen = () => {
   const handleChange = (e) => {
     if (e.target.name === "id") setUserID(e.target.value);
     if (e.target.name === "pw") setUserPW(e.target.value);
+  };
+
+  const successSignUp = async () => {
+    const us = new userService();
+    const response = await us.signUp(userID, userPW);
+    if (response === undefined) console.log("통신 불량");
+    else {
+      if (response.status === 200) console.log("signup success");
+      else console.log("회원가입 실패!");
+    }
   };
 
   return (
@@ -29,7 +40,10 @@ const LoginScreen = () => {
           placeholder="비밀번호"
           onChange={handleChange}
         />
-        <button>로그인</button>
+        <button type="button">로그인</button>
+        <button type="button" onClick={successSignUp}>
+          회원가입하기
+        </button>
       </form>
     </div>
   );
