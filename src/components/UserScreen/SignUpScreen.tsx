@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { userService } from "../services/userService";
-import "./LoginScreenCss.css";
+import {useNavigate} from "react-router-dom";
+import { userService } from "../../services/userService";
+import "./SignUpScreenCss.css";
 import * as React from "react";
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
+  const navigate = useNavigate();
   const [userID, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
@@ -14,23 +16,6 @@ const LoginScreen = () => {
     if (e.target.name === "pw") setUserPW(e.target.value);
   };
 
-  const successLogin = async () => {
-    const us = new userService();
-    const response = await us.signIn(userID, userPW);
-    if (response === undefined) console.log("통신 불량");
-    else {
-      if (response.status === 200) {
-        //스토리지 만들어서 accesstoken, refreshtoken, id 저장해둬야 함
-        setErrorMsg(null);
-        console.log(response.data.data.accessToken);
-        console.log("Login success");
-      } else {
-        console.log(response);
-        setErrorMsg(response.response.data.message);
-      }
-    }
-  };
-
   const successSignUp = async () => {
     const us = new userService();
     const response = await us.signUp(userID, userPW);
@@ -39,9 +24,15 @@ const LoginScreen = () => {
       if (response.status === 200) {
         setErrorMsg(null);
         console.log("signup success");
-        us.signIn(userID, userPW);
+        const signInResponse = await us.signIn(userID, userPW);
+        if(signInResponse.status===200) navigate('/main');
+        else {
+            alert("회원가입 이후 로그인에 실패했습니다. 로그인 화면으로 돌아갑니다.");
+            navigate('/');
+        }
       } else {
         setErrorMsg(response.response.data.message);
+        alert("회원가입에 실패했습니다.");
       }
     }
   };
@@ -49,14 +40,17 @@ const LoginScreen = () => {
   useEffect(()=>{
     if(userID.length!==0 && userPW.length!==0) setBtnAvailable(true);
     else setBtnAvailable(false);
-    console.log(btnAvailable);
   })
+
+  const moveToLogin = async () => {
+    navigate("/")
+  };
 
   return (
     <div className="Container">
       <div className="Wrapper">
-        <h1>Login</h1>
-        <h4>지그재그 파트너센터와 동일한 아이디, 비밀번호를 입력해 주세요.</h4>
+        <h1>회원 가입</h1>
+        <h4>OrderCount에 오신 것을 환영합니다.</h4>
         <input
           className="input"
           type="text"
@@ -74,17 +68,17 @@ const LoginScreen = () => {
           onChange={handleChange}
         />
         {errorMsg === null ? null : <span className="errorMsg"> {errorMsg}</span>}
-        {btnAvailable === true ? <button className="LoginBtn" type="button" onClick={successLogin}>
-          로그인
-        </button> : <button className="LoginBtnFail" type="button" onClick={()=>setErrorMsg("로그인 정보를 입력하세요.")}>
-          로그인
+        {btnAvailable === true ? <button className="SignUpBtn" type="button" onClick={successSignUp}>
+          회원가입
+        </button> : <button className="SignUpBtnFail" type="button" onClick={()=>setErrorMsg("로그인 정보를 입력하세요.")}>
+          회원가입
         </button>}
-        <button className="SignUpBtn" type="button" onClick={successSignUp}>
-          회원가입하기
+        <button className="MoveToLogin" type="button" onClick={moveToLogin}>
+          로그인으로 돌아가기
         </button>
       </div>
     </div>
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;
