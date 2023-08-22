@@ -22,7 +22,6 @@ const LoginScreen = () => {
     if (response === undefined) console.log("통신 불량");
     else {
       if (response.status === 200) {
-        //스토리지 만들어서 accesstoken, refreshtoken, id 저장해둬야 함
         setErrorMsg(null);
         let realData = response.data.data;
         await us.saveInfo(realData.accessToken, realData.refreshtoken, realData.memberId);
@@ -39,9 +38,13 @@ const LoginScreen = () => {
   };
 
   useEffect(()=>{
+    if(localStorage.getItem('loginStatus')!==null) navigate('/main');
+  },[]);
+
+  useEffect(()=>{
     if(userID.length!==0 && userPW.length!==0) setBtnAvailable(true);
     else setBtnAvailable(false);
-  })
+  },[userID, userPW]);
 
   return (
     <div className="Container">
