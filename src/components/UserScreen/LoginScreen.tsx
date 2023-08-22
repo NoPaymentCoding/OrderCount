@@ -24,7 +24,7 @@ const LoginScreen = () => {
       if (response.status === 200) {
         setErrorMsg(null);
         let realData = response.data.data;
-        await us.saveInfo(realData.accessToken, realData.refreshtoken, realData.memberId);
+        await us.saveInfo(realData.accessToken, realData.refreshToken, realData.memberId);
         navigate("/main");
       } else {
         console.log(response);
