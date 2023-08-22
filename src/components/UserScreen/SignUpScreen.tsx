@@ -25,7 +25,11 @@ const SignUpScreen = () => {
         setErrorMsg(null);
         console.log("signup success");
         const signInResponse = await us.signIn(userID, userPW);
-        if(signInResponse.status===200) navigate('/main');
+        if(signInResponse.status===200) {
+            let realData = signInResponse.data.data;
+            await us.saveInfo(realData.accessToken, realData.refreshtoken, realData.memberId);
+            navigate("/main");
+        }
         else {
             alert("회원가입 이후 로그인에 실패했습니다. 로그인 화면으로 돌아갑니다.");
             navigate('/');

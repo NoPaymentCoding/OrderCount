@@ -24,7 +24,8 @@ const LoginScreen = () => {
       if (response.status === 200) {
         //스토리지 만들어서 accesstoken, refreshtoken, id 저장해둬야 함
         setErrorMsg(null);
-        console.log(response.data.data.accessToken);
+        let realData = response.data.data;
+        await us.saveInfo(realData.accessToken, realData.refreshtoken, realData.memberId);
         navigate("/main");
       } else {
         console.log(response);
@@ -40,7 +41,6 @@ const LoginScreen = () => {
   useEffect(()=>{
     if(userID.length!==0 && userPW.length!==0) setBtnAvailable(true);
     else setBtnAvailable(false);
-    console.log(btnAvailable);
   })
 
   return (
