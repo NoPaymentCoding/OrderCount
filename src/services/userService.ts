@@ -38,11 +38,17 @@ class userService {
           },
         }
       );
-      console.log(response);
       return response;
     } catch (e) {
       return e;
     }
+  }
+
+  async saveInfo(accessToken: string, refreshToken: string, memberId: number) {
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('memberId', memberId.toString());
+    localStorage.setItem('loginStatus', 'true');
   }
 }
 

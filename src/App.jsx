@@ -2,7 +2,7 @@ import React from "react";
 import LoginScreen from "./components/UserScreen/LoginScreen";
 import MainScreen from "../src/components/MainScreen";
 import SignUpScreen from "./components/UserScreen/SignUpScreen";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
 function App() {
   return (
