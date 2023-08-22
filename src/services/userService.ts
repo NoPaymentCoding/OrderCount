@@ -48,6 +48,7 @@ class userService {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('memberId', memberId.toString());
+    localStorage.setItem('loginStatus', 'true');
   }
 }
 
