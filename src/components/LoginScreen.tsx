@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { userService } from "../services/userService";
 import "./LoginScreenCss.css";
 import * as React from "react";
@@ -7,6 +7,7 @@ const LoginScreen = () => {
   const [userID, setUserID] = useState("");
   const [userPW, setUserPW] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
+  const [btnAvailable, setBtnAvailable] = useState(false);
 
   const handleChange = (e) => {
     if (e.target.name === "id") setUserID(e.target.value);
@@ -24,6 +25,7 @@ const LoginScreen = () => {
         console.log(response.data.data.accessToken);
         console.log("Login success");
       } else {
+        console.log(response);
         setErrorMsg(response.response.data.message);
       }
     }
@@ -43,6 +45,12 @@ const LoginScreen = () => {
       }
     }
   };
+
+  useEffect(()=>{
+    if(userID.length!==0 && userPW.length!==0) setBtnAvailable(true);
+    else setBtnAvailable(false);
+    console.log(btnAvailable);
+  })
 
   return (
     <div className="Container">
@@ -65,11 +73,12 @@ const LoginScreen = () => {
           placeholder="비밀번호"
           onChange={handleChange}
         />
-        {errorMsg === null ? null : <span> {errorMsg}</span>}
-
-        <button className="LoginBtn" type="button" onClick={successLogin}>
+        {errorMsg === null ? null : <span className="errorMsg"> {errorMsg}</span>}
+        {btnAvailable === true ? <button className="LoginBtn" type="button" onClick={successLogin}>
           로그인
-        </button>
+        </button> : <button className="LoginBtnFail" type="button" onClick={()=>setErrorMsg("로그인 정보를 입력하세요.")}>
+          로그인
+        </button>}
         <button className="SignUpBtn" type="button" onClick={successSignUp}>
           회원가입하기
         </button>
