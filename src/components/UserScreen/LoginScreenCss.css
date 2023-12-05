@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'TheJamsil5Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
 .Container {
   background-color: white;
   width: 100vw;
@@ -20,19 +27,13 @@
 
 h1 {
   color: #182134;
-  font-family: Inter;
-  font-size: 4vw;
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'TheJamsil5Bold';
   line-height: normal;
 }
 
 h4 {
   color: #000;
-  font-family: Inter;
-  font-size: 1vw;
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'TheJamsil5Bold';
   line-height: normal;
   margin-top: 0.1vh;
   padding-bottom: 0.2vh;
@@ -44,6 +45,7 @@ h4 {
   flex-shrink: 0;
   border-radius: 10px;
   border: 2px solid #c6c6c6;
+  font-family: 'TheJamsil5Bold';
   font-size: 1.2vw;
   margin-bottom: 2vh;
   margin-top: 1vh;
@@ -51,6 +53,7 @@ h4 {
 
 .errorMsg {
   color: #f67070;
+  font-family: 'TheJamsil5Bold';
   font-size: 1vw;
   font-style: normal;
 }
@@ -81,6 +84,7 @@ h4 {
   border-color: #C6C6C6;
   border: none;
   margin-top: 4vh;
+  font-family: 'TheJamsil5Bold';
   font-size: 1vw;
 }
 
@@ -91,9 +95,9 @@ h4 {
   height: 5vh;
   justify-content: center;
   flex-shrink: 0;
+  font-family: 'TheJamsil5Bold';
   color: #3a4f7a;
   text-align: center;
-  font-family: Inter;
   font-size:  1vw;
   font-weight: 300;
   font-style: normal;
