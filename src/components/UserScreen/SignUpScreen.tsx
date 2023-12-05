@@ -27,7 +27,7 @@ const SignUpScreen = () => {
         const signInResponse = await us.signIn(userID, userPW);
         if(signInResponse.status===200) {
             let realData = signInResponse.data.data;
-            await us.saveInfo(realData.accessToken, realData.refreshtoken, realData.memberId);
+            await us.saveInfo(realData.accessToken, realData.refreshToken, realData.memberId);
             navigate("/main");
         }
         else {

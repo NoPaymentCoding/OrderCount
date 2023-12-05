@@ -50,6 +50,12 @@ class userService {
     localStorage.setItem('memberId', memberId.toString());
     localStorage.setItem('loginStatus', 'true');
   }
+
+  async deleteInfo(){
+    await localStorage.clear();
+    if(localStorage.getItem('loginStatus')===null) return true;
+    else return false;
+  }
 }
 
 export { userService };
